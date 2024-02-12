@@ -46,21 +46,17 @@ public class GuardVillagerScreen extends HandledScreen<GuardVillagerScreenHandle
     @Override
     protected void init() {
         super.init();
-        if (!GuardVillagersConfig.followHero || player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)) {
-            this.addDrawableChild(new GuardGuiButton(this.x + 100, this.height / 2 - 40, 20, 18, 0, 0, 19, GUARD_FOLLOWING_ICON, GUARD_NOT_FOLLOWING_ICON, true,
-                    (button) -> {
-                        ClientPlayNetworking.send(new GuardFollowPacket(guardEntity.getId()));
-                    })
-            );
-        }
-        if (!GuardVillagersConfig.setGuardPatrolHotv || player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)) {
-            this.addDrawableChild(new GuardGuiButton(this.x + 120, this.height / 2 - 40, 20, 18, 0, 0, 19, PATROL_ICON, NOT_PATROLLING_ICON, false,
-                    (button) -> {
-                        buttonPressed = !buttonPressed;
-                        ClientPlayNetworking.send(new GuardPatrolPacket(guardEntity.getId(), buttonPressed));
-                    })
-            );
-        }
+        this.addDrawableChild(new GuardGuiButton(this.x + 100, this.height / 2 - 40, 20, 18, 0, 0, 19, GUARD_FOLLOWING_ICON, GUARD_NOT_FOLLOWING_ICON, true,
+                (button) -> {
+                    ClientPlayNetworking.send(new GuardFollowPacket(guardEntity.getId()));
+                })
+        );
+        this.addDrawableChild(new GuardGuiButton(this.x + 120, this.height / 2 - 40, 20, 18, 0, 0, 19, PATROL_ICON, NOT_PATROLLING_ICON, false,
+                (button) -> {
+                    buttonPressed = !buttonPressed;
+                    ClientPlayNetworking.send(new GuardPatrolPacket(guardEntity.getId(), buttonPressed));
+                })
+        );
     }
 
     @Override
